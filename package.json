@@ -3,18 +3,20 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
-    "build:ui": "rm -rf dist && cd ../../part2/phonebook && npm run build && cp -r dist ../../part3/phonebook-backend", 
-    "deploy:full": "npm run build:ui && git add . && git commit -m ui:build && git push", 
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon index.js"
+    "start": "node --inspect index.js",
+    "dev": "nodemon --inspect index.js",
+    "build:ui": "rm -rf dist && cd ../../part2/phonebook && npm run build && cp -r dist ../../part3/phonebook-backend",
+    "deploy:full": "npm run build:ui && git add . && git commit -m ui:build && git push",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
   "license": "MIT",
   "description": "",
   "dependencies": {
     "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
     "express": "^4.21.2",
+    "mongoose": "^8.13.2",
     "morgan": "^1.10.0"
   },
   "devDependencies": {

@@ -1,7 +1,9 @@
-DELETE http://localhost:3001/api/persons/95476
+GET http://localhost:3001/api/persons
 
 ###
+GET http://localhost:3001/api/persons/67f610649e500e378eaa75e2
 
+###
 POST http://localhost:3001/api/persons
 content-type: application/json
 
@@ -9,3 +11,6 @@ content-type: application/json
   "name": "Luganos Maria",
   "number": "341-222-2222"
 }
+
+### 
+DELETE http://localhost:3001/api/persons/95476
