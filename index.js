@@ -30,7 +30,7 @@ const errorHandler = (error, request, response, next) => {
   next(error)
 }
 
-app.get('/info', (request, response) => {
+app.get('api/info', (request, response) => {
   Person.countDocuments({})
     .then(count => {
       const totalPersons = `Phonebook has info for ${count} people`
@@ -96,7 +96,7 @@ app.put('/api/persons/:id', (request, response, next) => {
   Person.findByIdAndUpdate(
     request.params.id,
     person,
-    { new: true }
+    { new: true, runValidators: true, context: 'query' }
   )
     .then(updatedPerson => {
       response.json(updatedPerson)
