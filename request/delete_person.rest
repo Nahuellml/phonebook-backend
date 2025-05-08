@@ -1,7 +1,7 @@
 GET http://localhost:3001/api/persons
 
 ###
-GET http://localhost:3001/api/persons/67f610649e500e378eaa75e2
+GET http://localhost:3001/api/personr/67f610649e500e378eaa75e2
 
 ###
 POST http://localhost:3001/api/persons

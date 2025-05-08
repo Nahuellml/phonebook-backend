@@ -26,44 +26,45 @@ const errorHandler = (error, request, response, next) => {
 
   if (error.name === 'CastError') {
     return response.status(400).send({ error: 'malformatted id' })
+  } else if (error.name === 'ValidationError') {
+    return response.status(400).json({ error: error.message })
   }
   next(error)
 }
 
-app.get('api/info', (request, response) => {
+app.get('/api/info', (request, response, next) => {
   Person.countDocuments({})
     .then(count => {
       const totalPersons = `Phonebook has info for ${count} people`
       const date = new Date().toString()
-
       response.send(`
           <p>${totalPersons}</p>
           <p>${date}</p>
         `)
     })
-
+    .catch(error => next(error))
 })
 
-app.get('/api/persons', (request, response) => {
-  Person.find({}).then(persons => {
-    response.json(persons)
-  })
+app.get('/api/persons', (request, response, next) => {
+  Person.find({})
+    .then(persons => response.json(persons))
+    .catch(error => next(error))
 })
 
-app.get('/api/persons/:id', (request, response) => {
-  Person.findById(request.params.id).then(person => {
-    response.json(person)
-  })
-})
+app.get('/api/persons/:id', (request, response, next) => {
+  Person.findById(request.params.id)
+    .then(person => {
+      if (person) {
+        response.json(person)
+      } else {
+        response.status(404).end()
+      }
+    })
+    .catch(error => next(error))
+}) 
 
 app.post('/api/persons', (request, response, next) => {
   const { name, number } = request.body
-
-  if (!name || !number) {
-    return response.status(400).json({
-      error: 'content missing'
-    })
-  }
 
   const person = new Person({
     name,
@@ -88,14 +89,9 @@ app.delete('/api/persons/:id', (request, response, next) => {
 app.put('/api/persons/:id', (request, response, next) => {
   const { name, number } = request.body
 
-  const person = {
-    name,
-    number
-  }
-
   Person.findByIdAndUpdate(
     request.params.id,
-    person,
+    { name, number },
     { new: true, runValidators: true, context: 'query' }
   )
     .then(updatedPerson => {
