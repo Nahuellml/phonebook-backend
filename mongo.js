@@ -40,9 +40,9 @@ if (process.argv.length === 3) {
     mongoose.connection.close()
   })
 } else {
-  console.log('Invalid arguments.');
-  console.log('Usage:');
-  console.log('  node mongo.js <password>            # List entries');
-  console.log('  node mongo.js <password> <name> <number>  # Add entry');
+  console.log('Invalid arguments.')
+  console.log('Usage:')
+  console.log('  node mongo.js <password>            # List entries')
+  console.log('  node mongo.js <password> <name> <number>  # Add entry')
   mongoose.connection.close()
 }
