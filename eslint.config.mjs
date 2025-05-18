@@ -32,7 +32,7 @@ export default defineConfig([
       "no-console": "off", // Permitir console.log
     },
   },
-  {
-    ignores: ["dist/**"],
-  },
+  //{
+  //  ignores: ["dist/**"],
+  //},
 ]);
